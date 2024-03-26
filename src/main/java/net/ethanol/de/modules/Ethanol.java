@@ -7,6 +7,7 @@ import net.ethanol.de.gui.EthanolScreen;
 public class Ethanol extends Module {
     public Ethanol() {
         super(Client.Main, "Ethanol", "Ethanol");
+        this.runInMainMenu = true;
     }
 
     @Override
