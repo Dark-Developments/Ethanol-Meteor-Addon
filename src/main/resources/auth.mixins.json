@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "net.ethanol.de.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "MultiplayerScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "SystemsMixin"
+  ]
+}

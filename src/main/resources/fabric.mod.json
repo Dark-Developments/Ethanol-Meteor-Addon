@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "ethanol",
+  "version": "0.3.5",
+  "name": "Auth",
+  "description": ".",
+  "authors": [
+    ""
+  ],
+  "contact": {
+    "repo": ""
+  },
+  "icon": "assets/icon/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "net.ethanol.de.Client"
+    ]
+  },
+  "mixins": [
+    "auth.mixins.json"
+  ],
+  "custom": {
+    "meteor-client:color": "170,0,0",
+    "github:sha": "${gh_hash}"
+  },
+  "depends": {
+    "java": ">=17",
+    "minecraft": ">=1.20.4",
+    "meteor-client": "*"
+  }
+}
