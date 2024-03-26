@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import rocks.ethanol.ethanolapi.server.listener.EthanolServerListener;
 
 public class Client extends MeteorAddon {
-
     public static final Logger LOG = LoggerFactory.getLogger(Client.class);
     public static final Category Main = new Category("Autism", Items.BOWL.getDefaultStack());
     public static EthanolServerListener EthanolListener;
