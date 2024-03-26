@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "id": "ethanol",
   "version": "0.3.5",
-  "name": "Auth",
-  "description": ".",
+  "name": "Ethanol",
+  "description": "Client-Side interaction between server and plugins.",
   "authors": [
-    ""
+    "nxyi"
   ],
   "contact": {
     "repo": ""
