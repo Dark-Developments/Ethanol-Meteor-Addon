@@ -16,12 +16,6 @@ public class Client extends MeteorAddon {
     public void onInitialize() {
         LOG.info("Initializing Autism Client");
 
-        // Modules
-
-        // Commands
-
-        // Hud
-
     }
 
     @Override
