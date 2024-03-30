@@ -9,6 +9,7 @@ import meteordevelopment.meteorclient.gui.widgets.pressable.WButton;
 import meteordevelopment.meteorclient.systems.Systems;
 import net.ethanol.de.Client;
 import net.ethanol.de.Ethanol.EthanolSystem;
+import net.ethanol.de.utils.Timer;
 import net.minecraft.client.gui.screen.multiplayer.ConnectScreen;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
@@ -25,10 +26,12 @@ public class EthanolScreen extends WindowScreen {
         super(GuiThemes.get(), "Ethanol");
     }
     private boolean waitingForAuth = false;
+    final Timer timer = new Timer();
+    private EthanolServerListener listener = Client.EthanolListener;
 
     @Override
     public void initWidgets() {
-        EthanolServerListener listener = Client.EthanolListener;
+        clear();
         String authToken = EthanolSystem.get().apiKey;
 
         if (authToken.isEmpty()) {
@@ -111,6 +114,11 @@ public class EthanolScreen extends WindowScreen {
 
     @Override
     public void tick() {
+        if (!waitingForAuth && timer.hasExpired(12000)){
+            timer.reset();
+            reload();
+        }
+
         if (waitingForAuth) {
             String authToken = EthanolSystem.get().apiKey;
             if (!authToken.isEmpty()) {
