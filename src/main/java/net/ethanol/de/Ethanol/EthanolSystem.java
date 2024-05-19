@@ -3,9 +3,14 @@ package net.ethanol.de.Ethanol;
 import meteordevelopment.meteorclient.systems.System;
 import meteordevelopment.meteorclient.systems.Systems;
 
+import java.util.ArrayList;
+
 public class EthanolSystem extends System<EthanolSystem> {
 
     public String apiKey = "";
+
+    public ArrayList<String> sharedServers = new ArrayList<>();
+
 
     public EthanolSystem(){
         super("EthanolSystem");

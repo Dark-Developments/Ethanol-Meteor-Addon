@@ -44,10 +44,16 @@ public class EthanolScreen extends WindowScreen {
                 if (this.client == null) return;
                 this.client.setScreen(new LoginWithDiscordScreen(this));
             };
+
+            WButton offlineButton = widgetList.add(theme.button("Guest")).widget();
+            offlineButton.action = () -> {
+                Systems.get(EthanolSystem.class).apiKey = "-1";
+                reload();
+            };
             return;
         }
 
-        if (listener == null){
+        if (listener == null && authToken != "-1"){
             listener = EthanolAPI.createServerListener(authToken);
             Client.EthanolListener = listener;
             try {
@@ -57,6 +63,7 @@ public class EthanolScreen extends WindowScreen {
             }
         }
 
+
         WHorizontalList accountList = add(theme.horizontalList()).expandX().widget();
 
         WButton logoutButton = accountList.add(theme.button("Logout")).widget();
@@ -64,15 +71,16 @@ public class EthanolScreen extends WindowScreen {
             Systems.get(EthanolSystem.class).apiKey = "";
             reload();
         };
-//        WTable userInfoList = add(theme.table()).widget();
-//        userInfoList.add(theme.label(EthanolSystem.get().apiKey));
+        WButton addKey = accountList.add(theme.button("Add Server")).widget();
+        addKey.action= () -> {
+            this.client.setScreen(new AddServerScreen(this));
+        };
 
-        if (listener.getServers() == null || listener.getServers().length == 0) {
+
+        if (Systems.get(EthanolSystem.class).sharedServers.isEmpty() || authToken == "-1" || listener == null || listener.getServers() == null || listener.getServers().length == 0) {
             add(theme.label("No Infected Servers Found")).expandX();
-            return;
         }
-
-        add(theme.label("Found %s server(s):".formatted(listener.getServers().length)));
+        else add(theme.label("Found %s server(s):".formatted(listener.getServers().length)));
 
         WTable table = add(theme.table()).widget();
 //        table.row();
@@ -87,6 +95,37 @@ public class EthanolScreen extends WindowScreen {
         table.add(theme.horizontalSeparator()).expandX();
         table.row();
 
+        for (String server : Systems.get(EthanolSystem.class).sharedServers){
+            String serverIP = server;
+            String Players = "%s/%s".formatted(0, 0);
+            String Version = "0";
+
+            table.add(theme.label(serverIP)).minWidth(minWidth);
+            table.add(theme.label(Players)).minWidth(minWidth);
+//            table.add(theme.label(Version)).minWidth(minWidth);
+
+            WButton joinButton = theme.button("Join");
+            joinButton.action = () -> {
+                ServerInfo info = new ServerInfo(serverIP ,serverIP, ServerInfo.ServerType.OTHER);
+                ConnectScreen.connect(this, MeteorClient.mc, ServerAddress.parse(serverIP), info, false);
+            };
+            table.add(joinButton);
+
+            WButton consoleButton = theme.button("Console");
+            consoleButton.action = () -> {
+
+            };
+            table.add(consoleButton);
+
+            WButton Remove = theme.button("Remove");
+            Remove.action = () -> {
+                Systems.get(EthanolSystem.class).sharedServers.remove(server);
+            };
+            table.add(Remove);
+            table.row();
+        }
+
+        if (authToken == "-1") return;
         for (EthanolServer server : listener.getServers()){
             String serverIP = server.getAddress().toString().substring(1);
             String Players = "%s/%s".formatted(server.getOnlinePlayers(), server.getMaxPlayers());
