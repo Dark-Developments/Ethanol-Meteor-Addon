@@ -7,6 +7,7 @@
     <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Dark-Developments/Ethanol-Meteor-Addon/total?color=black">
         <img src="https://raw.githubusercontent.com/Dark-Developments/Ethanol/master/src/main/resources/assets/icon/icon.png" alt="Ethanol Logo" width="400" height="400"/>
         <p>Meteor Client integration for Backdoor interaction</p>
+        <a href="https://discord.gg/4ZRevD4YG9">Ethanol Discord</a>
 </div>
 
 
